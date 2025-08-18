@@ -22,3 +22,6 @@ This program helps to calculate bmi by given weight and height. The program shou
 
 ## Testing
 You must run test to verify with maven `verify` goal
+
+## Challenge: Dynamic Web Interface
+In addition to the basic lab, create a nice HTML page with JavaScript that calls the servlet dynamically. This will allow the results to be displayed without a full page reload.
