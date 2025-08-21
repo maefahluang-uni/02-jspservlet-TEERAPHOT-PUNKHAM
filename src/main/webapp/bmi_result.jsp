@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-   <head>
-      <title>BMI Calculator</title>
-   </head>
+<head>
+    <title>BMI Result</title>
+</head>
 <body>
-<img src="https://www.cdc.gov/healthyweight/images/assessing/bmi-adult-fb-600x315.jpg?_=07167">
-<!--TODO: show bmi below -->
-<h2>Result is <%= request.getAttribute("bmi") %></h2>
-<!--TODO: show built type below -->
-<h3>According to your BMI, you are considered <%= request.getAttribute("builtType") %></h3>
+  <img src="https://www.cdc.gov/healthyweight/images/assessing/bmi-adult-fb-600x315.jpg?_=07167" alt="BMI Chart">
+    <h2>Result is ${bmi}</h2>
+    <p>${type}</p>
 </body>
 </html>

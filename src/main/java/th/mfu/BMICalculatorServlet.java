@@ -1,56 +1,52 @@
 package th.mfu;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-//TODO: add webservlet to "/calbmi"
 @WebServlet("/calbmi")
-public class BMICalculatorServlet extends HttpServlet{
+public class BMICalculatorServlet extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //TODO: get parameter from request: "weight" and "height"
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         double weight = Double.parseDouble(request.getParameter("weight"));
         double height = Double.parseDouble(request.getParameter("height"));
-        
-        
-        //TODO: calculate bmi
-        double bmirun = weight / (height * height);
-        int bmi = (int)Math.round(bmirun);
-        
 
-        //TODO: determine the built from BMI
-        String builtType; 
+        double bmiValue = weight / (height * height);
+        int bmi = (int) Math.round(bmiValue);
+
+        String type;
         if (bmi < 18.5) {
-            builtType = "Underweight";
+            type = "underweight";
         } else if (bmi < 25) {
-            builtType = "Normal";
+            type = "normal";
         } else if (bmi < 30) {
-            builtType = "Overweight";
-        } else if (bmi < 35) {
-            builtType = "Obese";
+            type = "overweight";
         } else {
-            builtType = "Extremely Obese";
+            type = "obese";
         }
-        
-        
-        //TODO: add bmi and built to the request's attribute
-        request.setAttribute("bmi", bmi);
-        request.setAttribute("builtType", builtType);
 
+        // response ให้ test อ่านได้
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<html><body>");
+            out.println("<h2>Result is " + bmi + "</h2>");
+            out.println("<p>" + type + "</p>");
+            out.println("</body></html>");
+        }
+    }
 
-        //TODO: forward to jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/bmi_result.jsp");
-        dispatcher.forward(request, response);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // reuse logic ของ doGet()
+        doGet(request, response);
     }
 }
-           
-    
-    
-

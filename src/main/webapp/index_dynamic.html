@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>BMI Calculator (Dynamic)</title>
+</head>
+<body>
+  <h2>BMI Calculator (Dynamic Version)</h2>
+
+  <form id="bmiForm">
+    <label>Weight (kg):</label>
+    <input type="text" id="weight" name="weight" required><br><br>
+
+    <label>Height (m):</label>
+    <input type="text" id="height" name="height" required><br><br>
+
+    <input type="submit" value="Calculate">
+  </form>
+
+  <div id="result" style="margin-top:20px;"></div>
+
+  <script>
+    document.getElementById("bmiForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+      const weight = document.getElementById("weight").value;
+      const height = document.getElementById("height").value;
+
+      
+      const formData = new URLSearchParams();
+      formData.append("weight", weight);
+      formData.append("height", height);
+
+     
+      fetch("../calbmi", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData
+      })
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("result").innerHTML = html;
+      })
+      .catch(error => {
+        document.getElementById("result").innerHTML =
+          "<p style='color:red;'>Error: " + error + "</p>";
+      });
+    });
+  </script>
+</body>
+</html>
